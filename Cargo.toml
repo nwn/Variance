@@ -1,5 +1,11 @@
 [package]
 name = "variance"
-version = "0.1.0"
+description = "Marker traits for subtype variance"
+version = "0.0.1"
 authors = ["Nathan Wiebe Neufeldt <wn.nathan@gmail.com>"]
+license = "MIT"
 edition = "2018"
+repository = "https://gitlab.com/nwn/variance"
+readme = "README.md"
+keywords = ["variance", "subtype", "marker"]
+categories = ["rust-patterns", "no-std"]
