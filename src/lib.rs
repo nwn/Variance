@@ -180,8 +180,67 @@ mod private {
 // TODO: Implement real tests
 #[cfg(test)]
 mod tests {
+    use super::{Covariant, Contravariant};
+
+    struct Lifetime<'a> {
+        _variance: super::Covariant<&'a ()>,
+    }
+
+    struct Co<X>(Covariant<X>);
+    struct Contra<X>(Contravariant<X>);
+    // struct In<X>(Invariant<X>);
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn covariant<'a>() {
+        let _co: Co<Lifetime<'a>> = Co(
+            Covariant::<Lifetime<'static>>::default(),
+        );
+    }
+
+    // #[test]
+    // fn covariant_fail<'a>() {
+    //    let _co: Co<Lifetime<'static>> = Co(
+    //        Covariant::<Lifetime<'a>>::default(),
+    //    );
+    // }
+
+    #[test]
+    fn contravariant<'a>() {
+        let _contra: Contra<Lifetime<'static>> = Contra(
+            Contravariant::<Lifetime<'a>>::default(),
+        );
+    }
+
+    // #[test]
+    // fn contravariant_fail<'a>() {
+    //    let _contra: Contra<Lifetime<'a>> = Contra(
+    //        Contravariant::<Lifetime<'static>>::default(),
+    //    );
+    // }
+
+    // #[test]
+    // fn invariant_fail_covariant<'a>() {
+    //    let _in: In<Lifetime<'a>> = In(
+    //        Invariant::<Lifetime<'static>>::default(),
+    //    );
+    // }
+
+    // #[test]
+    // fn invariant_fail_contravariant<'a>() {
+    //    let _in: In<Lifetime<'static>> = In(
+    //        Invariant::<Lifetime<'a>>::default(),
+    //    );
+    // }
+
+    #[test]
+    fn co_contra<'a>() {
+        struct Func<Arg, Ret> {
+            _arg: Covariant<Arg>,
+            _ret: Contravariant<Ret>,
+        }
+        let _func: Func<Lifetime<'a>, Lifetime<'static>> = Func {
+            _arg: Covariant::<Lifetime<'static>>::default(),
+            _ret: Contravariant::<Lifetime<'a>>::default(),
+        };
     }
 }
