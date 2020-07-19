@@ -1,5 +1,5 @@
 [package]
-name = "variance"
+name = "type-variance"
 description = "Marker traits for subtype variance"
 version = "0.0.1"
 authors = ["Nathan Wiebe Neufeldt <wn.nathan@gmail.com>"]

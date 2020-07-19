@@ -5,17 +5,17 @@ specify the [variance] of your generic types with respect to their parameters.
 
 [variance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
 
-[![Latest version](https://img.shields.io/crates/v/variance.svg)](https://crates.io/crates/variance)
-[![Documentation](https://docs.rs/variance/badge.svg)](https://docs.rs/variance)
-[![License](https://img.shields.io/crates/l/variance.svg)](https://gitlab.com/nwn/variance.rs#license)
+[![Latest version](https://img.shields.io/crates/v/type-variance.svg)](https://crates.io/crates/type-variance)
+[![Documentation](https://docs.rs/type-variance/badge.svg)](https://docs.rs/type-variance)
+[![License](https://img.shields.io/crates/l/type-variance.svg)](https://gitlab.com/nwn/variance/-/blob/master/LICENSE)
 
 ## Getting Started
-The Variance crate is available on [crates.io](https://crates.io/crates/variance). Add the following dependency to your Cargo manifest:
+The Variance crate is available on [crates.io](https://crates.io/crates/type-variance). Add the following dependency to your Cargo manifest:
 ``` toml
 [dependencies]
-variance = "0.0.1"
+type-variance = "0.0.1"
 ```
-See the [docs](https://docs.rs/variance) for detailed usage information.
+See the [docs](https://docs.rs/type-variance) for detailed usage information.
 
 ## Example
 The crate provides three zero-sized marker types: `Covariant<T>`,
@@ -24,7 +24,7 @@ as having the respective variance.
 
 For example:
 ``` rust
-use variance::{Covariant, Contravariant};
+use type_variance::{Covariant, Contravariant};
 
 // UnaryFunction is a zero-sized type that is covariant to `Arg` and
 // contravariant to `Ret`.

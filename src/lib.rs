@@ -28,7 +28,7 @@
 //! explicit with one of the markers [`Covariant`], [`Contravariant`], and
 //! [`Invariant`].
 //! ```
-//! use variance::{Covariant, Contravariant};
+//! use type_variance::{Covariant, Contravariant};
 //!
 //! struct Func<Arg, Ret> {
 //!     arg: Covariant<Arg>,
@@ -43,7 +43,7 @@
 //! `Invariant` marker can be used to ensure that the generic type is invariant
 //! with respect to the given type parameter.
 //! ```
-//! use variance::Invariant;
+//! use type_variance::Invariant;
 //!
 //! struct Opaque<T> {
 //!     inner: Box<T>,        // Implies `Opaque` is covariant to `T`
@@ -62,7 +62,7 @@
 //!
 //! For example:
 //! ```
-//! # use variance::Contravariant;
+//! # use type_variance::Contravariant;
 //! #
 //! struct Ref<'a, T> {
 //!     inner: &'a T,             // Implies `Ref` is covariant to `T`
@@ -152,7 +152,7 @@ impl<T: ?Sized> Variance for Invariant<T> {}
 ///
 /// For example:
 /// ```
-/// use variance::{Covariant, variance};
+/// use type_variance::{Covariant, variance};
 ///
 /// struct Co<T> {
 ///     other_data: u32,
