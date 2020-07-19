@@ -9,3 +9,11 @@ repository = "https://gitlab.com/nwn/variance"
 readme = "README.md"
 keywords = ["variance", "subtype", "marker"]
 categories = ["rust-patterns", "no-std"]
+autotests = false
+
+[dev-dependencies]
+trybuild = "1.0"
+
+[[test]]
+name = "failure_tests"
+path = "tests/fail.rs"

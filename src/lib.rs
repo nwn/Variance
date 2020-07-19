@@ -177,18 +177,16 @@ mod private {
     pub trait Sealed {}
 }
 
-// TODO: Implement real tests
 #[cfg(test)]
 mod tests {
     use super::{Covariant, Contravariant};
 
     struct Lifetime<'a> {
-        _variance: super::Covariant<&'a ()>,
+        _variance: Covariant<&'a ()>,
     }
 
     struct Co<X>(Covariant<X>);
     struct Contra<X>(Contravariant<X>);
-    // struct In<X>(Invariant<X>);
 
     #[test]
     fn covariant<'a>() {
@@ -197,40 +195,12 @@ mod tests {
         );
     }
 
-    // #[test]
-    // fn covariant_fail<'a>() {
-    //    let _co: Co<Lifetime<'static>> = Co(
-    //        Covariant::<Lifetime<'a>>::default(),
-    //    );
-    // }
-
     #[test]
     fn contravariant<'a>() {
         let _contra: Contra<Lifetime<'static>> = Contra(
             Contravariant::<Lifetime<'a>>::default(),
         );
     }
-
-    // #[test]
-    // fn contravariant_fail<'a>() {
-    //    let _contra: Contra<Lifetime<'a>> = Contra(
-    //        Contravariant::<Lifetime<'static>>::default(),
-    //    );
-    // }
-
-    // #[test]
-    // fn invariant_fail_covariant<'a>() {
-    //    let _in: In<Lifetime<'a>> = In(
-    //        Invariant::<Lifetime<'static>>::default(),
-    //    );
-    // }
-
-    // #[test]
-    // fn invariant_fail_contravariant<'a>() {
-    //    let _in: In<Lifetime<'static>> = In(
-    //        Invariant::<Lifetime<'a>>::default(),
-    //    );
-    // }
 
     #[test]
     fn co_contra<'a>() {

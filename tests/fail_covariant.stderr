@@ -1,0 +1,32 @@
+error[E0495]: cannot infer an appropriate lifetime due to conflicting requirements
+ --> $DIR/fail_covariant.rs:6:38
+  |
+6 |       let _co: Co<Lifetime<'static>> = Co(
+  |  ______________________________________^
+7 | |         Covariant::<Lifetime<'a>>::default(),
+8 | |     );
+  | |_____^
+  |
+note: first, the lifetime cannot outlive the lifetime `'a` as defined on the function body at 5:19...
+ --> $DIR/fail_covariant.rs:5:19
+  |
+5 | fn covariant_fail<'a>() {
+  |                   ^^
+note: ...so that the expression is assignable
+ --> $DIR/fail_covariant.rs:7:9
+  |
+7 |         Covariant::<Lifetime<'a>>::default(),
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  = note: expected  `type_variance::Covariant<common::Lifetime<'_>>`
+             found  `type_variance::Covariant<common::Lifetime<'a>>`
+  = note: but, the lifetime must be valid for the static lifetime...
+note: ...so that the expression is assignable
+ --> $DIR/fail_covariant.rs:6:38
+  |
+6 |       let _co: Co<Lifetime<'static>> = Co(
+  |  ______________________________________^
+7 | |         Covariant::<Lifetime<'a>>::default(),
+8 | |     );
+  | |_____^
+  = note: expected  `common::Co<common::Lifetime<'static>>`
+             found  `common::Co<common::Lifetime<'_>>`

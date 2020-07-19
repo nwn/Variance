@@ -1,0 +1,29 @@
+error[E0495]: cannot infer an appropriate lifetime due to conflicting requirements
+ --> $DIR/fail_contravariant.rs:7:9
+  |
+7 |         Contravariant::<Lifetime<'static>>::default(),
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+note: first, the lifetime cannot outlive the lifetime `'a` as defined on the function body at 5:23...
+ --> $DIR/fail_contravariant.rs:5:23
+  |
+5 | fn contravariant_fail<'a>() {
+  |                       ^^
+note: ...so that the expression is assignable
+ --> $DIR/fail_contravariant.rs:6:41
+  |
+6 |       let _contra: Contra<Lifetime<'a>> = Contra(
+  |  _________________________________________^
+7 | |         Contravariant::<Lifetime<'static>>::default(),
+8 | |     );
+  | |_____^
+  = note: expected  `common::Contra<common::Lifetime<'a>>`
+             found  `common::Contra<common::Lifetime<'_>>`
+  = note: but, the lifetime must be valid for the static lifetime...
+note: ...so that the expression is assignable
+ --> $DIR/fail_contravariant.rs:7:9
+  |
+7 |         Contravariant::<Lifetime<'static>>::default(),
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  = note: expected  `type_variance::Contravariant<common::Lifetime<'_>>`
+             found  `type_variance::Contravariant<common::Lifetime<'static>>`
