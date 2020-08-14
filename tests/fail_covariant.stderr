@@ -17,8 +17,8 @@ note: ...so that the expression is assignable
   |
 7 |         Covariant::<Lifetime<'a>>::default(),
   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  = note: expected  `type_variance::Covariant<common::Lifetime<'_>>`
-             found  `type_variance::Covariant<common::Lifetime<'a>>`
+  = note: expected `type_variance::Covariant<common::Lifetime<'_>>`
+             found `type_variance::Covariant<common::Lifetime<'a>>`
   = note: but, the lifetime must be valid for the static lifetime...
 note: ...so that the expression is assignable
  --> $DIR/fail_covariant.rs:6:38
@@ -28,5 +28,5 @@ note: ...so that the expression is assignable
 7 | |         Covariant::<Lifetime<'a>>::default(),
 8 | |     );
   | |_____^
-  = note: expected  `common::Co<common::Lifetime<'static>>`
-             found  `common::Co<common::Lifetime<'_>>`
+  = note: expected `common::Co<common::Lifetime<'static>>`
+             found `common::Co<common::Lifetime<'_>>`

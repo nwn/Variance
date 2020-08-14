@@ -17,13 +17,13 @@ note: ...so that the expression is assignable
 7 | |         Contravariant::<Lifetime<'static>>::default(),
 8 | |     );
   | |_____^
-  = note: expected  `common::Contra<common::Lifetime<'a>>`
-             found  `common::Contra<common::Lifetime<'_>>`
+  = note: expected `common::Contra<common::Lifetime<'a>>`
+             found `common::Contra<common::Lifetime<'_>>`
   = note: but, the lifetime must be valid for the static lifetime...
 note: ...so that the expression is assignable
  --> $DIR/fail_contravariant.rs:7:9
   |
 7 |         Contravariant::<Lifetime<'static>>::default(),
   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  = note: expected  `type_variance::Contravariant<common::Lifetime<'_>>`
-             found  `type_variance::Contravariant<common::Lifetime<'static>>`
+  = note: expected `type_variance::Contravariant<common::Lifetime<'_>>`
+             found `type_variance::Contravariant<common::Lifetime<'static>>`

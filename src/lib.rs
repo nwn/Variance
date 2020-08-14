@@ -53,6 +53,13 @@
 //! The `Invariant` overrules any other implied variances and so `Opaque`
 //! becomes invariant to `T`.
 //!
+//! ## Lifetime parameters
+//!
+//! Like `PhantomData`, the provided variance markers only accept type
+//! parameters. To indicate a generic type's variance with respect to its
+//! lifetime parameters, use the [`Lifetime`] wrapper, which converts a
+//! lifetime to a regular type while preserving its subtyping relation.
+//!
 //! # Limitations
 //!
 //! The marker traits `Covariant` and `Contravariant` _do not_ necessarily
@@ -81,6 +88,7 @@
 //! [`Covariant`]: struct.Covariant.html
 //! [`Contravariant`]: struct.Contravariant.html
 //! [`Invariant`]: struct.Invariant.html
+//! [`Lifetime`]: struct.Lifetime.html
 
 use core::marker::PhantomData;
 
@@ -121,6 +129,9 @@ pub struct Invariant<T: ?Sized> {
     marker: (Covariant<T>, Contravariant<T>),
 }
 
+// NOTE: These manual impls are necessary due to the following issue, but
+// can be replaced with a #[derive(Default)] when/if it gets resolved.
+// https://github.com/rust-lang/rust/issues/26925
 impl<T: ?Sized> Default for Covariant<T> {
     fn default() -> Self {
         Self { marker: Default::default(), }
@@ -144,6 +155,28 @@ impl<T: ?Sized> private::Sealed for Invariant<T> {}
 impl<T: ?Sized> Variance for Covariant<T> {}
 impl<T: ?Sized> Variance for Contravariant<T> {}
 impl<T: ?Sized> Variance for Invariant<T> {}
+
+/// Variance-preserving type wrapper around a lifetime parameter.
+///
+/// This can be useful to indicate the variance of a generic type with respect
+/// to a lifetime parameter, rather than a type parameter.
+///
+/// For example:
+/// ```
+/// use type_variance::{Covariant, Lifetime};
+///
+/// struct Guard<'a> {
+///     marker: Covariant<Lifetime<'a>>,
+/// }
+/// ```
+/// This marks `Guard` as being covariant to `'a`.
+///
+/// Note that this type is not constructible, and so should be wrapped with
+/// either a `PhantomData` or one of the variance marker types.
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+pub struct Lifetime<'a> {
+    _variance: Covariant<&'a ()>,
+}
 
 /// A convenience function for constructing any of `Covariant<T>`,
 /// `Contravariant<T>`, and `Invariant<T>`. It is equivalent to [`default`].
@@ -179,11 +212,7 @@ mod private {
 
 #[cfg(test)]
 mod tests {
-    use super::{Covariant, Contravariant};
-
-    struct Lifetime<'a> {
-        _variance: Covariant<&'a ()>,
-    }
+    use super::{Covariant, Contravariant, Lifetime};
 
     struct Co<X>(Covariant<X>);
     struct Contra<X>(Contravariant<X>);
