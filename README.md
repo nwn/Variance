@@ -13,7 +13,7 @@ specify the [variance] of your generic types with respect to their parameters.
 The Variance crate is available on [crates.io](https://crates.io/crates/type-variance). Add the following dependency to your Cargo manifest:
 ``` toml
 [dependencies]
-type-variance = "0.0.3"
+type-variance = "0.1.0"
 ```
 See the [docs](https://docs.rs/type-variance) for detailed usage information.
 
